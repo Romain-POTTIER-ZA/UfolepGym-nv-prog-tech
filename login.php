@@ -1,13 +1,10 @@
 <?php
-// On force l'affichage de toutes les erreurs PHP pour le débogage.
-ini_set('display_errors', 1);
-ini_set('display_startup_errors', 1);
-error_reporting(E_ALL);
 
-// Démarrage de la session pour gérer l'état de connexion de l'utilisateur
+
+
 session_start();
 
-// Gestion des messages d'erreur provenant du processus de connexion
+
 $error_message = '';
 if (isset($_GET['error'])) {
     if ($_GET['error'] === 'invalid_credentials') {
@@ -41,17 +38,16 @@ if (isset($_GET['error'])) {
         </div>
     </nav>
 
-    <!-- La section <aside> a été retirée comme demandé -->
-
+    
     <main>
         <div class="container">
 
-            <!-- Formulaire de connexion -->
+            
             <form action="modules/login_process.php" method="POST" id="login-form">
                 <h2>Connexion à votre espace</h2>
                 <br>
 
-                <!-- Affichage des messages d'erreur de connexion -->
+               
                 <?php if (!empty($error_message)): ?>
                 <div id="form-feedback" class="form-message error-message">
                     <?= htmlspecialchars($error_message) ?>
@@ -74,7 +70,7 @@ if (isset($_GET['error'])) {
         </div>
     </main>
 
-    <!-- Le script JS est conservé pour la gestion du menu mobile -->
+   
     <script src="assets/js/main.js"></script>
 </body>
 

@@ -1,6 +1,5 @@
 <?php
-// CORRECTION : On force l'affichage de toutes les erreurs PHP pour le débogage.
-// Cela nous permettra de voir la cause exacte de l'écran blanc.
+
 ini_set('display_errors', 1);
 ini_set('display_startup_errors', 1);
 error_reporting(E_ALL);
@@ -16,7 +15,7 @@ $first_capsule_id = '';
 try {
     include_once 'modules/db.php';
 
-    // Sécurité supplémentaire : on vérifie que la connexion a bien été établie
+    
     if (!isset($pdo) || $pdo === null) {
         throw new Exception("L'objet de connexion PDO n'a pas été initialisé. Vérifiez le fichier 'modules/db.php'.");
     }
@@ -28,10 +27,10 @@ try {
         $first_video_link = $capsules[0]['lien_youtube'];
         $first_capsule_id = $capsules[0]['id'];
     }
-} catch (Throwable $e) { // Attrape les PDOException ET les autres erreurs
-    // On stocke un message d'erreur clair pour l'afficher à l'utilisateur
+} catch (Throwable $e) { 
+    
     $db_error = "Erreur critique : Impossible de charger les données. (" . $e->getMessage() . ")";
-    // Pour le débogage, il est utile de logger l'erreur complète
+    
     error_log($e);
 }
 

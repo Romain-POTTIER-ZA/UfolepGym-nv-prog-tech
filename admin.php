@@ -1,41 +1,36 @@
 <?php
-// Démarrage de la session pour accéder aux variables de session
+
 session_start();
 
-// // VÉRIFICATION DE CONNEXION
-// // 1. L'utilisateur doit être connecté
+
 if (!isset($_SESSION['user_id'])) {
     header('Location: /login.php');
     exit();
 }
 
-// // 2. L'utilisateur doit avoir le rôle 'admin'
-// //    (Cette information doit être stockée dans la session lors de la connexion)
+
 if (!isset($_SESSION['user_role']) || $_SESSION['user_role'] !== 'admin') {
-    // Si l'utilisateur n'est pas admin, on le redirige vers le tableau de bord standard.
+    
     header('Location: dashboard.php');
     exit();
 }
 
-// On force l'affichage de toutes les erreurs PHP pour le débogage.
-ini_set('display_errors', 1);
-ini_set('display_startup_errors', 1);
-error_reporting(E_ALL);
+
+
 
 $pdo = null;
 $users = [];
 $db_error = null;
 
 try {
-    // Inclusion du fichier de connexion à la base de données
+   
     include_once 'modules/db.php';
 
     if (!isset($pdo) || $pdo === null) {
         throw new Exception("L'objet de connexion PDO n'a pas été initialisé.");
     }
 
-    // Récupération des utilisateurs existants (en supposant une table 'users')
-    // Exclure le mot de passe de la requête pour la sécurité
+    
     $stmt = $pdo->query("SELECT id, user, role FROM Users ORDER BY user ASC");
     $users = $stmt->fetchAll();
 } catch (Throwable $e) {
@@ -52,7 +47,7 @@ try {
     <link rel="stylesheet" href="./style/style.css">
     <title>Gestion Utilisateurs - UFOLEP Gym</title>
     <style>
-    /* Styles pour la mise en page du tableau de bord (réutilisés) */
+   
     .dashboard-container {
         display: flex;
         flex-wrap: wrap;
@@ -139,7 +134,7 @@ try {
             <h1>Gestion des Utilisateurs</h1>
 
             <div class="dashboard-container">
-                <!-- Colonne 1: Liste des utilisateurs -->
+                
                 <div class="dashboard-col user-list">
                     <h2>Utilisateurs Existants</h2>
                     <?php if (isset($db_error)): ?>
@@ -153,7 +148,7 @@ try {
                                 <span class="email"><?= htmlspecialchars($user['user']) ?></span>
                                 <span class="role">Rôle : <?= htmlspecialchars($user['role']) ?></span>
                             </div>
-                            <!-- Ne pas autoriser un admin à se supprimer lui-même -->
+                            
                             <?php if ($_SESSION['user_id'] !== $user['id']): ?>
                             <form action="modules/delete_user.php" method="POST"
                                 onsubmit="return confirm('Êtes-vous sûr de vouloir supprimer cet utilisateur ?');">
@@ -170,7 +165,7 @@ try {
                     <?php endif; ?>
                 </div>
 
-                <!-- Colonne 2: Formulaire pour ajouter un utilisateur -->
+                
                 <div class="dashboard-col">
                     <h2>Ajouter un Nouvel Utilisateur</h2>
                     <form action="modules/add_user.php" method="POST" id="add-user-form">

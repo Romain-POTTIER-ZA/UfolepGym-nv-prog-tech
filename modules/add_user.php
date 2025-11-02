@@ -5,20 +5,20 @@ session_start();
 
 if (!isset($_SESSION['user_id']) || !isset($_SESSION['user_role']) || $_SESSION['user_role'] !== 'admin') {
    
-    http_response_code(403); // Forbidden
+    http_response_code(403); 
     die('Accès refusé. Vous devez être administrateur pour effectuer cette action.');
 }
 
 
 if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
-    // Rediriger si le script est accédé directement par l'URL
+    
     header('Location: ../admin.php');
     exit();
 }
 
 
 if (empty($_POST['email']) || empty($_POST['password']) || empty($_POST['role'])) {
-    // Rediriger avec un message d'erreur si des champs sont manquants
+    
     header('Location: ../admin.php?error=missing_fields');
     exit();
 }
@@ -37,13 +37,12 @@ if ($role !== 'user' && $role !== 'admin') {
     exit();
 }
 
-// 2. HACHAGE DU MOT DE PASSE
-// Utiliser l'algorithme de hachage moderne et sécurisé de PHP
+
 $hashed_password = password_hash($_POST['password'], PASSWORD_DEFAULT);
 
-// 3. INSERTION DANS LA BASE DE DONNÉES
+
 try {
-    // Inclusion du fichier de connexion à la BDD
+   
     include_once 'db.php';
 
     

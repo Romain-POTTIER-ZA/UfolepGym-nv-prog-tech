@@ -65,13 +65,13 @@ nav{
         border-radius: 10px;
         letter-spacing: 1px;}
         .menu-icon {
-        display: none; // Caché par défaut sur grand écran
+        display: none; 
         flex-direction: column;
         justify-content: space-around;
         width: 30px;
         height: 25px;
         cursor: pointer;
-        z-index: 101; // Pour s'assurer qu'il est cliquable
+        z-index: 101; 
 
         span {
             display: block;
@@ -95,8 +95,7 @@ aside{
     top: 80px;
     height: 100%;
     position: sticky;
-    transition: transform 0.3s ease-in-out; // NOUVEAU : Ajout d'une transition douce
-    z-index: 100; // NOUVEAU : Pour qu'il passe au-dessus du contenu si besoin
+    z-index: 100; 
 }
 main{
     grid-area: main;
@@ -192,14 +191,14 @@ main .container form {
     .form-row {
         display: flex;
         gap: 20px;
-        flex-wrap: wrap; // Pour passer en colonne sur mobile
+        flex-wrap: wrap;
     }
 
     .form-group {
         display: flex;
         flex-direction: column;
         gap: 8px;
-        flex: 1; // Permet aux groupes de prendre une place égale
+        flex: 1; 
 
         label {
             font-weight: 500;
@@ -207,7 +206,7 @@ main .container form {
         }
     }
 
-    // Style pour les champs de texte, select et textarea
+    
     input[type="text"],input[type="email"],input[type="password"],
     select,
     textarea {
@@ -230,14 +229,14 @@ main .container form {
         min-height: 80px;
     }
 
-    // --- Style personnalisé pour les boutons radio ---
+    
     .radio-group {
         display: flex;
         flex-wrap: wrap;
         gap: 10px;
 
         input[type="radio"] {
-            display: none; // On cache le bouton radio par défaut
+            display: none; 
         }
 
         label {
@@ -254,7 +253,7 @@ main .container form {
             }
         }
 
-        // Style quand le bouton radio est sélectionné
+        
         input[type="radio"]:checked + label {
             background-color: $c-ba3184;
             color: $bg-w;
@@ -262,7 +261,7 @@ main .container form {
         }
     }
 
-    // --- Style du bouton d'envoi ---
+    
     button[type="submit"] {
         padding: 15px;
         border: none;
@@ -282,33 +281,33 @@ main .container form {
 }
 @media (max-width: 1200px) {
     body {
-        // La grille est modifiée pour que 'main' prenne toute la place
+        
         grid-template-columns: 1fr;
         grid-template-areas: "navbar" "main";
     }
 nav  h3 {font-size: medium;padding: 10px;}
 nav  .logo {display: none;}
     nav .menu-icon {
-        display: flex; // On affiche le bouton hamburger
+        display: flex; 
     }
 
     aside {
-        // On sort l'aside du flux normal et on le cache sur la gauche
-        grid-area: unset; // On retire l'aside de la grille
+       
+        grid-area: unset; 
         position: fixed;
         top: 0;
         left: 0;
         height: 100vh;
         width: 250px;
-        transform: translateX(-100%); // Cache le menu sur la gauche
+        transform: translateX(-100%); 
     }
 
-    // NOUVEAU : Classe qui sera ajoutée par JavaScript pour afficher le menu
+   
     aside.is-open {
-        transform: translateX(0); // Fait apparaître le menu
+        transform: translateX(0);
     }
 }
-// Media Query pour les petits écrans
+
 @media (max-width: 768px) {
     main .container form .form-row {
         flex-direction: column;
