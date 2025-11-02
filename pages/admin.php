@@ -1,0 +1,193 @@
+<?php
+// Démarrage de la session pour accéder aux variables de session
+// session_start();
+
+// // VÉRIFICATION DE CONNEXION
+// // 1. L'utilisateur doit être connecté
+// if (!isset($_SESSION['user_id'])) {
+//     header('Location: /login.php');
+//     exit();
+// }
+
+// // 2. L'utilisateur doit avoir le rôle 'admin'
+// //    (Cette information doit être stockée dans la session lors de la connexion)
+// if (!isset($_SESSION['user_role']) || $_SESSION['user_role'] !== 'admin') {
+//     // Si l'utilisateur n'est pas admin, on le redirige vers le tableau de bord standard.
+//     header('Location: dashboard.php');
+//     exit();
+// }
+
+// On force l'affichage de toutes les erreurs PHP pour le débogage.
+ini_set('display_errors', 1);
+ini_set('display_startup_errors', 1);
+error_reporting(E_ALL);
+
+$pdo = null;
+$users = [];
+$db_error = null;
+
+try {
+    // Inclusion du fichier de connexion à la base de données
+    include_once '../modules/db.php';
+
+    if (!isset($pdo) || $pdo === null) {
+        throw new Exception("L'objet de connexion PDO n'a pas été initialisé.");
+    }
+
+    // Récupération des utilisateurs existants (en supposant une table 'users')
+    // Exclure le mot de passe de la requête pour la sécurité
+    $stmt = $pdo->query("SELECT id, email, role FROM Users ORDER BY email ASC");
+    $users = $stmt->fetchAll();
+} catch (Throwable $e) {
+    $db_error = "Erreur critique : Impossible de charger les utilisateurs. (" . $e->getMessage() . ")";
+    error_log($e);
+}
+?>
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./style/style.css">
+    <title>Gestion Utilisateurs - UFOLEP Gym</title>
+    <style>
+        /* Styles pour la mise en page du tableau de bord (réutilisés) */
+        .dashboard-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 2rem;
+            padding: 1rem;
+        }
+
+        .dashboard-col {
+            flex: 1;
+            min-width: 300px;
+            background-color: #f9f9f9;
+            padding: 1.5rem;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .user-list ul {
+            list-style-type: none;
+            padding: 0;
+        }
+
+        .user-list li {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0.8rem;
+            border-bottom: 1px solid #ddd;
+        }
+
+        .user-list li:last-child {
+            border-bottom: none;
+        }
+
+        .user-info {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .user-info .email {
+            font-weight: bold;
+        }
+
+        .user-info .role {
+            font-size: 0.8em;
+            color: #555;
+            text-transform: capitalize;
+        }
+
+        .delete-btn {
+            background-color: #e74c3c;
+            color: white;
+            border: none;
+            padding: 5px 10px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 0.9em;
+        }
+
+        .delete-btn:hover {
+            background-color: #c0392b;
+        }
+    </style>
+</head>
+
+<body>
+    <nav>
+        <div class="col">
+            <img src="img/_logo_UFOLEP_Gym_Trampo.jpg" class="logo" alt="Logo UFOLEP Gym">
+            <h3 style="color:white;text-align:center;">Administration</h3>
+        </div>
+        <a href="dashboard.php" style="color: white; padding: 1rem;">Tableau de Bord</a>
+        <a href="modules/logout.php" style="color: white; padding: 1rem;">Déconnexion</a>
+    </nav>
+
+    <main>
+        <div class="container">
+            <h1>Gestion des Utilisateurs</h1>
+
+            <div class="dashboard-container">
+                <!-- Colonne 1: Liste des utilisateurs -->
+                <div class="dashboard-col user-list">
+                    <h2>Utilisateurs Existants</h2>
+                    <?php if (isset($db_error)): ?>
+                        <p style="color: red;"><?= htmlspecialchars($db_error) ?></p>
+                    <?php else: ?>
+                        <ul>
+                            <?php if (!empty($users)): ?>
+                                <?php foreach ($users as $user): ?>
+                                    <li>
+                                        <div class="user-info">
+                                            <span class="email"><?= htmlspecialchars($user['email']) ?></span>
+                                            <span class="role">Rôle : <?= htmlspecialchars($user['role']) ?></span>
+                                        </div>
+                                        <!-- Ne pas autoriser un admin à se supprimer lui-même -->
+                                        <?php if ($_SESSION['user_id'] !== $user['id']): ?>
+                                            <form action="modules/delete_user.php" method="POST"
+                                                onsubmit="return confirm('Êtes-vous sûr de vouloir supprimer cet utilisateur ?');">
+                                                <input type="hidden" name="id_user" value="<?= htmlspecialchars($user['id']) ?>">
+                                                <button type="submit" class="delete-btn">Supprimer</button>
+                                            </form>
+                                        <?php endif; ?>
+                                    </li>
+                                <?php endforeach; ?>
+                            <?php else: ?>
+                                <li>Aucun utilisateur trouvé.</li>
+                            <?php endif; ?>
+                        </ul>
+                    <?php endif; ?>
+                </div>
+
+                <!-- Colonne 2: Formulaire pour ajouter un utilisateur -->
+                <div class="dashboard-col">
+                    <h2>Ajouter un Nouvel Utilisateur</h2>
+                    <form action="../modules/add_user.php" method="POST" id="add-user-form">
+                        <div class="form-group">
+                            <label for="email">Adresse e-mail :</label>
+                            <input type="email" id="email" name="email" required placeholder="nom@exemple.com">
+                        </div>
+                        <div class="form-group">
+                            <label for="password">Mot de passe :</label>
+                            <input type="password" id="password" name="password" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="role">Rôle :</label>
+                            <select name="role" id="role">
+                                <option value="admin">Admin</option>
+                            </select>
+                        </div>
+                        <button type="submit">Ajouter l'utilisateur</button>
+                    </form>
+                </div>
+            </div>
+
+        </div>
+    </main>
+</body>
+
+</html>

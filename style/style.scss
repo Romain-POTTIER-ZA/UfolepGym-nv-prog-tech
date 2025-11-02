@@ -1,0 +1,316 @@
+// Couleurs principales
+$c-ba3184: #ba3184;
+$c-e4334f: #e4334f;
+$c-ed8414: #ed8414;
+$c-cfb73d: #cfb73d;
+$c-91c173: #91c173;
+$c-24a49d: #24a49d;
+
+// Couleurs de fond et additionnelles
+$bg-ws: whitesmoke;
+$bg-w: #fff;
+$text-dark: #333;
+$shadow-color: rgba(0, 0, 0, 0.1);
+
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Poppins', sans-serif;
+    scroll-behavior: smooth;
+    list-style: none;
+    text-decoration: none;
+    outline: none;
+    
+
+}
+
+body{
+background: $bg-ws;
+display: grid;
+grid-template-columns:250px 1fr;
+grid-template-rows: 80px 1fr;
+grid-template-areas: "navbar navbar" "aside main";
+min-height: 100vh;
+color: black;
+}
+
+nav{
+    grid-area: navbar;
+    box-shadow: 0 5px 10px $shadow-color;
+    border-bottom: 1px solid rgba(whitesmoke, 0.1);
+    background: linear-gradient( 90deg , $c-ba3184, $c-e4334f);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0 20px;
+    flex-direction: row;
+    flex-wrap: wrap;
+    color: $bg-w;
+    .col{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    gap: 10px;
+    align-items: center;
+    justify-content: center;
+
+    }
+    .logo{
+        width: 200px;
+        padding: 1px;
+        font-weight: 600;
+        color: $bg-w;
+        background-color: $bg-w;
+        border-radius: 10px;
+        letter-spacing: 1px;}
+        .menu-icon {
+        display: none; // Caché par défaut sur grand écran
+        flex-direction: column;
+        justify-content: space-around;
+        width: 30px;
+        height: 25px;
+        cursor: pointer;
+        z-index: 101; // Pour s'assurer qu'il est cliquable
+
+        span {
+            display: block;
+            height: 3px;
+            width: 100%;
+            background: $bg-w;
+            border-radius: 3px;
+        }
+    }
+}
+aside{
+    grid-area: aside;
+    box-shadow: 5px 0 10px $shadow-color;
+    border-right: 1px solid rgba(whitesmoke, 0.1);
+    background: $bg-w;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+    top: 80px;
+    height: 100%;
+    position: sticky;
+    transition: transform 0.3s ease-in-out; // NOUVEAU : Ajout d'une transition douce
+    z-index: 100; // NOUVEAU : Pour qu'il passe au-dessus du contenu si besoin
+}
+main{
+    grid-area: main;
+    text-align: center;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    padding: 10px;
+    gap: 20px;
+    iframe{
+        max-width: 1200px;
+        width: 100%;
+        max-height: 650px;
+        height: 600px;
+        border-radius: 10px;
+        box-shadow: 0 5px 15px $shadow-color;
+        @media (max-width: 600px){
+            width: 100%;
+            height: auto;
+        }
+    }
+    .container{
+        max-width: 1200px;
+        width: 100%;
+        background: $bg-w;
+        padding: 20px;
+        border-radius: 10px;
+        box-shadow: 0 5px 15px $shadow-color;
+        text-align: left;
+        display: flex;
+        flex-direction: column;
+        h2{
+            margin-bottom: 10px;
+            color: $text-dark;
+        }
+        p{
+            color: $text-dark;
+            line-height: 1.6;
+        }
+       
+    }
+}
+aside ul {
+        width: 100%;
+        padding: 0;
+        margin: 0;
+    }
+
+    aside ul li {
+        padding: 15px;
+        cursor: pointer;
+        border-bottom: 1px solid #f0f0f0;
+        transition: background-color 0.3s, color 0.3s;
+        text-align: left;
+        font-weight: 500;
+    }
+
+    aside ul li:hover {
+        background-color: #fce4ec;
+        /* Rose clair au survol */
+        color: #ba3184;
+    }
+
+    aside ul li.active {
+        background-color: #ba3184;
+        color: white;
+        font-weight: bold;
+    }
+main .container form {
+    display: flex;
+    flex-direction: column;
+    gap: 25px;
+    width: 100%;
+    p{
+    text-align: center;
+    text-transform:uppercase;
+    color: darken($text-dark, 20%);
+        padding: 8px;
+    }
+    h1,h3 {
+        color: $text-dark;
+        font-weight: 600;
+        margin-bottom: 10px;
+        text-align: center;
+        background: linear-gradient(90deg, $c-ba3184, $c-e4334f);
+        -webkit-background-clip: text;
+        background-clip: text;
+        -webkit-text-fill-color: transparent;
+    }
+
+    .form-row {
+        display: flex;
+        gap: 20px;
+        flex-wrap: wrap; // Pour passer en colonne sur mobile
+    }
+
+    .form-group {
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+        flex: 1; // Permet aux groupes de prendre une place égale
+
+        label {
+            font-weight: 500;
+            color: darken($text-dark, 10%);
+        }
+    }
+
+    // Style pour les champs de texte, select et textarea
+    input[type="text"],input[type="email"],input[type="password"],
+    select,
+    textarea {
+        width: 100%;
+        padding: 12px;
+        border: 1px solid #ccc;
+        border-radius: 8px;
+        font-size: 1rem;
+        transition: border-color 0.3s, box-shadow 0.3s;
+        
+        &:focus {
+            border-color: $c-ba3184;
+            box-shadow: 0 0 5px rgba($c-ba3184, 0.5);
+            outline: none;
+        }
+    }
+    
+    textarea {
+        resize: vertical;
+        min-height: 80px;
+    }
+
+    // --- Style personnalisé pour les boutons radio ---
+    .radio-group {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 10px;
+
+        input[type="radio"] {
+            display: none; // On cache le bouton radio par défaut
+        }
+
+        label {
+            padding: 12px 20px;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-weight: 500;
+            
+            &:hover {
+                background-color: lighten($c-ba3184, 40%);
+                border-color: $c-ba3184;
+            }
+        }
+
+        // Style quand le bouton radio est sélectionné
+        input[type="radio"]:checked + label {
+            background-color: $c-ba3184;
+            color: $bg-w;
+            border-color: $c-ba3184;
+        }
+    }
+
+    // --- Style du bouton d'envoi ---
+    button[type="submit"] {
+        padding: 15px;
+        border: none;
+        border-radius: 8px;
+        background: linear-gradient(90deg, $c-ba3184, $c-e4334f);
+        color: $bg-w;
+        font-size: 1.1rem;
+        font-weight: 600;
+        cursor: pointer;
+        transition: transform 0.2s, box-shadow 0.3s;
+
+        &:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 15px rgba($c-e4334f, 0.3);
+        }
+    }
+}
+@media (max-width: 1200px) {
+    body {
+        // La grille est modifiée pour que 'main' prenne toute la place
+        grid-template-columns: 1fr;
+        grid-template-areas: "navbar" "main";
+    }
+nav  h3 {font-size: medium;padding: 10px;}
+nav  .logo {display: none;}
+    nav .menu-icon {
+        display: flex; // On affiche le bouton hamburger
+    }
+
+    aside {
+        // On sort l'aside du flux normal et on le cache sur la gauche
+        grid-area: unset; // On retire l'aside de la grille
+        position: fixed;
+        top: 0;
+        left: 0;
+        height: 100vh;
+        width: 250px;
+        transform: translateX(-100%); // Cache le menu sur la gauche
+    }
+
+    // NOUVEAU : Classe qui sera ajoutée par JavaScript pour afficher le menu
+    aside.is-open {
+        transform: translateX(0); // Fait apparaître le menu
+    }
+}
+// Media Query pour les petits écrans
+@media (max-width: 768px) {
+    main .container form .form-row {
+        flex-direction: column;
+    }
+}

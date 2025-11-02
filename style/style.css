@@ -1,0 +1,289 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Poppins", sans-serif;
+  scroll-behavior: smooth;
+  list-style: none;
+  text-decoration: none;
+  outline: none;
+}
+
+body {
+  background: whitesmoke;
+  display: grid;
+  grid-template-columns: 250px 1fr;
+  grid-template-rows: 80px 1fr;
+  grid-template-areas: "navbar navbar" "aside main";
+  min-height: 100vh;
+  color: black;
+}
+
+nav {
+  grid-area: navbar;
+  box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
+  border-bottom: 1px solid rgba(245, 245, 245, 0.1);
+  background: linear-gradient(90deg, #ba3184, #e4334f);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0 20px;
+  flex-direction: row;
+  flex-wrap: wrap;
+  color: #fff;
+}
+nav .col {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  gap: 10px;
+  align-items: center;
+  justify-content: center;
+}
+nav .logo {
+  width: 200px;
+  padding: 1px;
+  font-weight: 600;
+  color: #fff;
+  background-color: #fff;
+  border-radius: 10px;
+  letter-spacing: 1px;
+}
+nav .menu-icon {
+  display: none;
+  flex-direction: column;
+  justify-content: space-around;
+  width: 30px;
+  height: 25px;
+  cursor: pointer;
+  z-index: 101;
+}
+nav .menu-icon span {
+  display: block;
+  height: 3px;
+  width: 100%;
+  background: #fff;
+  border-radius: 3px;
+}
+
+aside {
+  grid-area: aside;
+  box-shadow: 5px 0 10px rgba(0, 0, 0, 0.1);
+  border-right: 1px solid rgba(245, 245, 245, 0.1);
+  background: #fff;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+  top: 80px;
+  height: 100%;
+  position: sticky;
+  transition: transform 0.3s ease-in-out;
+  z-index: 100;
+}
+
+main {
+  grid-area: main;
+  text-align: center;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  padding: 10px;
+  gap: 20px;
+}
+main iframe {
+  max-width: 1200px;
+  width: 100%;
+  max-height: 650px;
+  height: 600px;
+  border-radius: 10px;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+}
+@media (max-width: 600px) {
+  main iframe {
+    width: 100%;
+    height: auto;
+  }
+}
+main .container {
+  max-width: 1200px;
+  width: 100%;
+  background: #fff;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+  text-align: left;
+  display: flex;
+  flex-direction: column;
+}
+main .container h2 {
+  margin-bottom: 10px;
+  color: #333;
+}
+main .container p {
+  color: #333;
+  line-height: 1.6;
+}
+
+aside ul {
+  width: 100%;
+  padding: 0;
+  margin: 0;
+}
+
+aside ul li {
+  padding: 15px;
+  cursor: pointer;
+  border-bottom: 1px solid #f0f0f0;
+  transition: background-color 0.3s, color 0.3s;
+  text-align: left;
+  font-weight: 500;
+}
+
+aside ul li:hover {
+  background-color: #fce4ec;
+  /* Rose clair au survol */
+  color: #ba3184;
+}
+
+aside ul li.active {
+  background-color: #ba3184;
+  color: white;
+  font-weight: bold;
+}
+
+main .container form {
+  display: flex;
+  flex-direction: column;
+  gap: 25px;
+  width: 100%;
+}
+main .container form p {
+  text-align: center;
+  text-transform: uppercase;
+  color: black;
+  padding: 8px;
+}
+main .container form h1, main .container form h3 {
+  color: #333;
+  font-weight: 600;
+  margin-bottom: 10px;
+  text-align: center;
+  background: linear-gradient(90deg, #ba3184, #e4334f);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+main .container form .form-row {
+  display: flex;
+  gap: 20px;
+  flex-wrap: wrap;
+}
+main .container form .form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  flex: 1;
+}
+main .container form .form-group label {
+  font-weight: 500;
+  color: rgb(25.5, 25.5, 25.5);
+}
+main .container form input[type=text], main .container form input[type=email], main .container form input[type=password],
+main .container form select,
+main .container form textarea {
+  width: 100%;
+  padding: 12px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  font-size: 1rem;
+  transition: border-color 0.3s, box-shadow 0.3s;
+}
+main .container form input[type=text]:focus, main .container form input[type=email]:focus, main .container form input[type=password]:focus,
+main .container form select:focus,
+main .container form textarea:focus {
+  border-color: #ba3184;
+  box-shadow: 0 0 5px rgba(186, 49, 132, 0.5);
+  outline: none;
+}
+main .container form textarea {
+  resize: vertical;
+  min-height: 80px;
+}
+main .container form .radio-group {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+main .container form .radio-group input[type=radio] {
+  display: none;
+}
+main .container form .radio-group label {
+  padding: 12px 20px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  font-weight: 500;
+}
+main .container form .radio-group label:hover {
+  background-color: rgb(240.1957446809, 198.8042553191, 223.8808510638);
+  border-color: #ba3184;
+}
+main .container form .radio-group input[type=radio]:checked + label {
+  background-color: #ba3184;
+  color: #fff;
+  border-color: #ba3184;
+}
+main .container form button[type=submit] {
+  padding: 15px;
+  border: none;
+  border-radius: 8px;
+  background: linear-gradient(90deg, #ba3184, #e4334f);
+  color: #fff;
+  font-size: 1.1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: transform 0.2s, box-shadow 0.3s;
+}
+main .container form button[type=submit]:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 15px rgba(228, 51, 79, 0.3);
+}
+
+@media (max-width: 1200px) {
+  body {
+    grid-template-columns: 1fr;
+    grid-template-areas: "navbar" "main";
+  }
+  nav h3 {
+    font-size: medium;
+    padding: 10px;
+  }
+  nav .logo {
+    display: none;
+  }
+  nav .menu-icon {
+    display: flex;
+  }
+  aside {
+    grid-area: unset;
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 100vh;
+    width: 250px;
+    transform: translateX(-100%);
+  }
+  aside.is-open {
+    transform: translateX(0);
+  }
+}
+@media (max-width: 768px) {
+  main .container form .form-row {
+    flex-direction: column;
+  }
+}/*# sourceMappingURL=style.css.map */
