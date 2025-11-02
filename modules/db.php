@@ -6,19 +6,19 @@
 
 // --- 1. Paramètres de connexion ---
 // Adresse du serveur de base de données (sans le port)
-define('DB_HOST', 'pr642490-001.eu.clouddb.ovh.net');
+define('DB_HOST', '***************');
 
 // Port du serveur de base de données
-define('DB_PORT', '35590');
+define('DB_PORT', '***************');
 
 // Nom de la base de données que vous avez créée dans phpMyAdmin
-define('DB_NAME', 'UFOLEP-Gym');
+define('DB_NAME', '***************');
 
 // Nom d'utilisateur pour se connecter à la base de données
 define('DB_USER', 'AdminUFO');
 
 // Mot de passe de l'utilisateur
-define('DB_PASS', 'KZqMxbz4emeu3Jn');
+define('DB_PASS', '***************');
 
 // Jeu de caractères à utiliser pour la connexion
 define('DB_CHARSET', 'utf8mb4');
@@ -62,4 +62,5 @@ function convertirLienYoutubeEnEmbed($url) {
     
     // Si aucun ID n'est trouvé ou si c'est déjà un lien d'intégration, on retourne l'URL originale
     return $url;
+
 }
